@@ -1,0 +1,108 @@
+<head>
+  <style>
+    .main-container {
+      display: flex;
+      justify-content: center;
+    }
+    .next-piece-container {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: space-around;
+      margin: 0px 10px;
+      font-size: 30px;
+    }
+
+    .next-piece {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    .next-piece p {
+      padding: 0px;
+      margin: 0px;
+      margin-bottom: 5px;
+    }
+    #grid-canvas {
+      border: 2px solid black;
+    }
+
+    #next-canvas {
+      border: 2px solid black;
+    }
+
+    #score-container {
+      width: auto;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    #reset-button {
+      font-size: 20px;
+      height: 20%;
+      width: 100%;
+    }
+
+    #ai-button {
+      font-size: 20px;
+      height: 20%;
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body onload="startTime()">
+  <div class="main-container">
+    <canvas height="400" width="200" id="grid-canvas"></canvas>
+    <div class="next-piece-container">
+      <div class="next-piece">
+        <p>Next piece:</p>
+        <canvas id="next-canvas" height="80" width="80"></canvas>
+      </div>
+      <div class="score">
+        <div>Score:</div>
+        <div id="score-container"></div>
+      </div>
+    </div>
+    <div class="button-container">
+      <button id="reset-button">Restart game</button>
+      <button id="ai-button">Toggle AI</button>
+    </div>
+  </div>
+
+  <script src="ai.js"></script>
+  <script src="grid.js"></script>
+  <script src="piece.js"></script>
+  <script src="polyfill.js"></script>
+  <script src="random_piece_generator.js"></script>
+  <script src="stopwatch.js"></script>
+  <script src="timer.js"></script>
+  <script src="tuner.js"></script>
+  <script src="game_manager.js"></script>
+
+  <div id="txt"></div>
+
+  <script>
+    const started = new Date();
+
+    function startTime() {
+      const diff = new Date().getTime() - started.getTime();
+      const m = Math.floor(diff / 1000 / 60);
+      const s = Math.floor(diff / 1000 - m * 60);
+      console.log(diff);
+      document.getElementById("txt").innerHTML = "Time spent: " + m + ":" + s;
+      t = setTimeout(function () {
+        startTime();
+      }, 1000);
+    }
+  </script>
+</body>

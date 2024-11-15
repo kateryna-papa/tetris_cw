@@ -204,12 +204,13 @@ function GameManager() {
     startTurn();
   }
 
-  function onKeyDown(event) {
+function onKeyDown(event) {
     if (!isKeyEnabled) {
       return;
     }
+
     switch (event.which) {
-      case 32:
+      case 32: // Spacebar - швидке падіння
         isKeyEnabled = false;
         gravityTimer.stop();
         startWorkingPieceDropAnimation(function () {
@@ -221,20 +222,29 @@ function GameManager() {
           startTurn();
         });
         break;
-        gravityTimer.resetForward(500);
-        break;
+
+      case 37: // Стрілка вліво
         if (workingPiece.canMoveLeft(grid)) {
           workingPiece.moveLeft(grid);
           redrawGridCanvas();
         }
         break;
+
+      case 39: // Стрілка вправо
         if (workingPiece.canMoveRight(grid)) {
           workingPiece.moveRight(grid);
           redrawGridCanvas();
         }
         break;
 
-      case 38: //up
+      case 40: // Стрілка вниз
+        if (workingPiece.canMoveDown(grid)) {
+          workingPiece.moveDown(grid);
+          redrawGridCanvas();
+        }
+        break;
+
+      case 38: // Стрілка вгору - ротація
         workingPiece.rotate(grid);
         redrawGridCanvas();
         break;
